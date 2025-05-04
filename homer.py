@@ -41,11 +41,11 @@ class HomerModel:
         self.current_link_group.add_link(link)
 
     def to_string(self):
-        result = '<div class="my-items">\n'
+        template = '<div class="my-items">\n@LINK_GROUPS\n</div>\n'
+        link_groups_content = ''
         for link_group in self.link_groups:
-            result += link_group.to_string()
-        result += '</div>\n'
-        return result
+            link_groups_content += link_group.to_string()
+        return template.replace("@LINK_GROUPS", link_groups_content)
 
 class Consumer:
     def __init__(self):

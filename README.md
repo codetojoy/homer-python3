@@ -14,3 +14,8 @@ An example of Homer (website links) in Python 3.
 $ python3 --version
 Python 3.13.2
 ```
+
+### TODO
+
+* use template files entirely and simplify all `to_string()` methods
+* move to Jinja2 as template engine
