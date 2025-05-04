@@ -2,6 +2,7 @@
 class Config:
     def __init__(self):
         self.main_template_file = 'resources/main.template.html'
+        self.homer_template_file = 'resources/homer.template.html'
         self.link_template_file = 'resources/link.template.html'
         self.output_file = 'index.html'
 
@@ -70,11 +71,15 @@ class HomerModel:
         self.current_link_group.add_link(link)
 
     def to_string(self, config):
-        template = '<div class="my-items">\n@LINK_GROUPS\n</div>\n'
+        template_file = config.homer_template_file
+
         link_groups_content = ''
         for link_group in self.link_groups:
             link_groups_content += link_group.to_string(config)
-        return template.replace("@LINK_GROUPS", link_groups_content)
+
+        token = Token("@LINK_GROUPS", link_groups_content)
+        content = Stamper().stamp(template_file, [token])
+        return content 
 
 class Consumer:
     def __init__(self):
