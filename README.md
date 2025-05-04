@@ -17,5 +17,4 @@ Python 3.13.2
 
 ### TODO
 
-* use template files entirely and simplify all `to_string()` methods
 * move to Jinja2 as template engine

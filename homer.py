@@ -3,6 +3,7 @@ class Config:
     def __init__(self):
         self.main_template_file = 'resources/main.template.html'
         self.homer_template_file = 'resources/homer.template.html'
+        self.link_group_template_file = 'resources/link.group.template.html'
         self.link_template_file = 'resources/link.template.html'
         self.output_file = 'index.html'
 
@@ -36,14 +37,15 @@ class LinkGroup:
         self.links.append(link) 
 
     def to_string(self, config):
-        result = "<div class=\"my-item\">\n"
-        result += "<h3>" + self.name + "</h3>\n"
-        result += "<div>\n"
+        template_file = config.link_group_template_file
+
+        links_content = ""
         for link in self.links:
-            result += link.to_string(config)
-        result += "</div>\n"
-        result += "</div>\n"
-        return result
+            links_content += link.to_string(config)
+
+        tokens = [Token("@NAME", self.name), Token("@LINKS", links_content)]
+        content = Stamper().stamp(template_file, tokens)
+        return content 
 
 class Link:
     def __init__(self, name, url):
