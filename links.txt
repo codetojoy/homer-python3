@@ -1,0 +1,21 @@
+
+Fun
+BlueSky, https://bsky.app/
+MMA, https://mmafightingsbn.com
+reddit, https://reddit.com
+TrueFire, https://truefire.com 
+
+News
+CBC news, https://cbc.ca/news
+CBC PEI, https://cbc.ca/pei
+CNN, https://cnn.com
+
+Mail
+Yahoo, https://mail.yahoo.com
+Gmail, https://gmail.com
+
+Tech
+AWS, https://aws.amazon.com/console/
+BitWarden, https://bitwarden.com
+MeetUp, https://meetup.com/pei-developers
+PEI Devs Slack, https://peidevs.slack.com

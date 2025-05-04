@@ -1,0 +1,47 @@
+<html>
+<head>
+<style>
+:root {
+  --primary: linen;
+  --primary-darker: goldenrod;
+  --background: black;
+  --secondary: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100%;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  background-color: var(--background);
+  background-image: linear-gradient(180deg, var(--background), var(--primary-darker));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+a {
+  color: var(--background);
+}
+
+.my-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 4rem;
+}
+
+.my-item {
+  border: 1px solid var(--background);
+  background-color: var(--primary-darker);
+  padding: 10px;
+  margin: 1.2rem;
+}
+</style>
+</head>
+<body>
+@HOMER_MODEL
+</body>
+</html>
