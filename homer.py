@@ -58,7 +58,8 @@ class Consumer:
         if (is_empty):
             return
 
-        tokens = line.split(",")
+        orig_tokens = trim_line.split(",")
+        tokens = list(map(lambda t: t.strip(), orig_tokens))
         is_link_group = len(tokens) == 1
 
         if (is_link_group):
