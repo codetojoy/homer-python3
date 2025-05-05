@@ -110,21 +110,19 @@ class Consumer:
         for line in file:
             self.process_line(line)
 
-class ContentWriter:
-    def __init__(self, config):
-        self.main_template_file = config.main_template_file
-        self.output_file = config.output_file
+def write_content(config, homer_model):
+    main_template_file = config.main_template_file
+    output_file = config.output_file
 
-    def write(self, homer_model):
-        token = Token("@HOMER_MODEL", homer_model.to_string(config))
-        content = stamp_template(self.main_template_file, [token])
+    token = Token("@HOMER_MODEL", homer_model.to_string(config))
+    content = stamp_template(main_template_file, [token])
 
-        try:
-            with open(self.output_file, 'w') as file:
-                file.write(content)
+    try:
+        with open(output_file, 'w') as file:
+            file.write(content)
 
-        except Exception as e:
-            print(f"An error occurred: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 # ----------------------------
 #
@@ -135,7 +133,6 @@ file = open(config.input_file, 'r')
 consumer = Consumer()
 consumer.process_file(file)
 
-content_writer = ContentWriter(config)
-content_writer.write(consumer.homer_model)
+write_content(config, consumer.homer_model)
 
 print("TRACER OK.")
