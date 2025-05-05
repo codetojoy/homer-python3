@@ -1,32 +1,32 @@
 
-class Config:
-    def __init__(self):
-        self.main_template_file = 'resources/main.template.html'
-        self.homer_template_file = 'resources/homer.template.html'
-        self.link_group_template_file = 'resources/link.group.template.html'
-        self.link_template_file = 'resources/link.template.html'
-        self.output_file = 'index.html'
+from typing import NamedTuple
 
-class Token:
-    def __init__(self, token, new_value):
-        self.token = token
-        self.new_value = new_value
+class Config(NamedTuple):
+    input_file: str = 'links.txt'
+    output_file: str = 'index.html'
+    main_template_file: str = 'resources/main.template.html'
+    homer_template_file: str = 'resources/homer.template.html'
+    link_group_template_file: str = 'resources/link.group.template.html'
+    link_template_file: str = 'resources/link.template.html'
 
-class Stamper:
-    def stamp(self, template_file, tokens):
-        try:
-            with open(template_file, 'r') as file:
-                content = file.read()
+class Token(NamedTuple):
+    token: str
+    new_value: str
 
-            for token in tokens:
-                placeholder = token.token
-                value = token.new_value
-                content = content.replace(placeholder, value)
+def stamp_template(template_file, tokens):
+    try:
+        with open(template_file, 'r') as file:
+            content = file.read()
 
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        for token in tokens:
+            placeholder = token.token
+            value = token.new_value
+            content = content.replace(placeholder, value)
 
-        return content
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    return content
 
 class LinkGroup:
     def __init__(self, name):
@@ -44,7 +44,7 @@ class LinkGroup:
             links_content += link.to_string(config)
 
         tokens = [Token("@NAME", self.name), Token("@LINKS", links_content)]
-        content = Stamper().stamp(template_file, tokens)
+        content = stamp_template(template_file, tokens)
         return content 
 
 class Link:
@@ -55,7 +55,7 @@ class Link:
     def to_string(self, config):
         template_file = config.link_template_file
         tokens = [Token("@URL", self.url), Token("@NAME", self.name)]
-        content = Stamper().stamp(template_file, tokens)
+        content = stamp_template(template_file, tokens)
         return content 
 
 class HomerModel:
@@ -80,7 +80,7 @@ class HomerModel:
             link_groups_content += link_group.to_string(config)
 
         token = Token("@LINK_GROUPS", link_groups_content)
-        content = Stamper().stamp(template_file, [token])
+        content = stamp_template(template_file, [token])
         return content 
 
 class Consumer:
@@ -110,9 +110,6 @@ class Consumer:
         for line in file:
             self.process_line(line)
 
-    def get_homer_model(self):
-        return self.homer_model
-
 class ContentWriter:
     def __init__(self, config):
         self.main_template_file = config.main_template_file
@@ -120,7 +117,7 @@ class ContentWriter:
 
     def write(self, homer_model):
         token = Token("@HOMER_MODEL", homer_model.to_string(config))
-        content = Stamper().stamp(self.main_template_file, [token])
+        content = stamp_template(self.main_template_file, [token])
 
         try:
             with open(self.output_file, 'w') as file:
@@ -133,14 +130,12 @@ class ContentWriter:
 #
 
 config = Config()
-file = open('links.txt','r')
+file = open(config.input_file, 'r')
 
 consumer = Consumer()
 consumer.process_file(file)
 
-homer_model = consumer.get_homer_model()
-
 content_writer = ContentWriter(config)
-content_writer.write(homer_model)
+content_writer.write(consumer.homer_model)
 
 print("TRACER OK.")
