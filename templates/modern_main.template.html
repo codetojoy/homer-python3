@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@TITLE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+                :root {
+            /* Luxury Color Schemes - Sophisticated & Elegant */
+            /* Default: Golden Luxury (inspired by original goldenrod) */
+            --primary: #d4af37;
+            --primary-dark: #b8941f;
+            --primary-light: #f4e4a6;
+            --secondary: #2c3e50;
+            --accent: #e67e22;
+            
+            /* Background - Rich, sophisticated palette */
+            --bg-primary: #1a1612;
+            --bg-secondary: #2d2a23;
+            --bg-tertiary: #3d3a30;
+            --bg-card: #252218;
+            --bg-hover: #2f2c22;
+            
+            /* Text - Refined contrast */
+            --text-primary: #f5f3ed;
+            --text-secondary: #d4d0c4;
+            --text-muted: #a8a299;
+            
+            /* Borders - Subtle luxury */
+            --border-primary: #3d3a30;
+            --border-hover: #4a4539;
+            
+            /* Effects - Premium feel */
+            --shadow: 0 2px 12px rgba(0,0,0,0.4);
+            --shadow-hover: 0 4px 20px rgba(212,175,55,0.2);
+            --radius: 8px;
+        }
+
+        /* Luxury Color Themes */
+        [data-theme="platinum"] {
+            --primary: #c0c0c0;
+            --primary-dark: #a8a8a8;
+            --primary-light: #e8e8e8;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #141414;
+            --bg-hover: #1f1f1f;
+            --text-primary: #f5f5f5;
+            --text-secondary: #d0d0d0;
+            --text-muted: #a0a0a0;
+            --border-primary: #2a2a2a;
+            --border-hover: #3a3a3a;
+        }
+
+        [data-theme="sapphire"] {
+            --primary: #0f4c7c;
+            --primary-dark: #0a3a5c;
+            --primary-light: #4a90c2;
+            --bg-primary: #0a0e15;
+            --bg-secondary: #15202b;
+            --bg-card: #101419;
+            --bg-hover: #1a2329;
+            --text-primary: #e3f2fd;
+            --text-secondary: #c3e4f0;
+            --text-muted: #8bb5d1;
+            --border-primary: #1e2a3a;
+            --border-hover: #2a3b4d;
+        }
+
+        [data-theme="emerald"] {
+            --primary: #0d5016;
+            --primary-dark: #0a3d12;
+            --primary-light: #2d8f3a;
+            --bg-primary: #0a120b;
+            --bg-secondary: #162018;
+            --bg-card: #101614;
+            --bg-hover: #1a251c;
+            --text-primary: #e8f5e8;
+            --text-secondary: #d4e8d4;
+            --text-muted: #9fc09f;
+            --border-primary: #1e3020;
+            --border-hover: #2a4028;
+        }
+
+        [data-theme="wine"] {
+            --primary: #722f37;
+            --primary-dark: #5d252a;
+            --primary-light: #a8505a;
+            --bg-primary: #150a0c;
+            --bg-secondary: #2b1719;
+            --bg-card: #1f1214;
+            --bg-hover: #341a1e;
+            --text-primary: #f5e8ea;
+            --text-secondary: #e8d4d6;
+            --text-muted: #c09fa3;
+            --border-primary: #3a1e22;
+            --border-hover: #4d2a30;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            line-height: 1.4;
+            min-height: 100vh;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-btn {
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-btn.active {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .theme-btn[data-theme="golden"] { background: linear-gradient(45deg, #d4af37, #f4e4a6); }
+        .theme-btn[data-theme="platinum"] { background: linear-gradient(45deg, #c0c0c0, #e8e8e8); }
+        .theme-btn[data-theme="sapphire"] { background: linear-gradient(45deg, #0f4c7c, #4a90c2); }
+        .theme-btn[data-theme="emerald"] { background: linear-gradient(45deg, #0d5016, #2d8f3a); }
+        .theme-btn[data-theme="wine"] { background: linear-gradient(45deg, #722f37, #a8505a); }
+
+        /* Compact Header */
+        .header {
+            text-align: center;
+            padding: 1.5rem 1rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .header p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .header .stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .stat-icon {
+            width: 0.75rem;
+            height: 0.75rem;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem;
+            flex: 1;
+        }
+
+        /* Force Horizontal Distribution */
+        .link-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Compact Link Group */
+        .link-group {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius);
+            padding: 0.75rem;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+        }
+
+        .link-group:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+        }
+
+        .group-header {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .group-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.125rem;
+        }
+
+        .group-meta {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Compact Links */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid transparent;
+            border-radius: calc(var(--radius) * 0.75);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.15s ease;
+            font-size: 0.875rem;
+        }
+
+        .link:hover {
+            background: var(--bg-hover);
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .link-icon {
+            width: 0.75rem;
+            height: 0.75rem;
+            margin-right: 0.5rem;
+            background: var(--primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .link-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .link-name {
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .link-arrow {
+            opacity: 0;
+            transform: translateX(-5px);
+            transition: all 0.15s ease;
+            color: var(--primary);
+            font-size: 0.75rem;
+        }
+
+        .link:hover .link-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Sticky Footer */
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid var(--border-primary);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: auto;
+        }
+
+        .footer .tech-stack {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design - Force Horizontal Layout */
+        @media (min-width: 1400px) {
+            .link-groups {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            .link-groups {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) and (max-width: 1199px) {
+            .link-groups {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 600px) and (max-width: 899px) {
+            .link-groups {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 1rem 0.5rem 0.75rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.75rem;
+            }
+            
+            .header .stats {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            
+            .link-groups {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .theme-switcher {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.25rem;
+                gap: 0.25rem;
+            }
+            
+            .theme-btn {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+    
+    <!-- Theme CSS Files -->
+    <link id="theme-css" rel="stylesheet" href="themes/dark.css">
+    
+    <script>
+        // Theme Switcher - Luxury Collection
+        const themes = ['golden', 'platinum', 'sapphire', 'emerald', 'wine'];
+        let currentTheme = 0;
+        
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('homer-theme', themeName);
+            
+            // Update active button
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-theme="${themeName}"]`).classList.add('active');
+        }
+        
+        function initThemes() {
+            // Load saved theme or default to golden
+            const savedTheme = localStorage.getItem('homer-theme') || 'golden';
+            const themeIndex = themes.indexOf(savedTheme);
+            currentTheme = themeIndex >= 0 ? themeIndex : 0;
+            setTheme(themes[currentTheme]);
+            
+            // Add click handlers
+            document.querySelectorAll('.theme-btn').forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    currentTheme = index;
+                    setTheme(themes[index]);
+                });
+            });
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initThemes);
+    </script>
+</head>
+<body>
+    <!-- Luxury Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="golden" title="Golden Luxury"></button>
+        <button class="theme-btn" data-theme="platinum" title="Platinum Elite"></button>
+        <button class="theme-btn" data-theme="sapphire" title="Sapphire Professional"></button>
+        <button class="theme-btn" data-theme="emerald" title="Emerald Prestige"></button>
+        <button class="theme-btn" data-theme="wine" title="Wine Sophisticated"></button>
+    </div>
+    
+    <header class="header">
+        <h1>@TITLE</h1>
+        <p>@SUBTITLE</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon"></div>
+                <span>@TOTAL_GROUPS Groups</span>
+            </div>
+            <div class="stat">
+                <div class="stat-icon"></div>
+                <span>@TOTAL_LINKS Links</span>
+            </div>
+            <div class="stat">
+                <div class="stat-icon"></div>
+                <span>Generated @GENERATED_DATE</span>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        @HOMER_MODEL
+    </main>
+    
+    <footer class="footer">
+        <p>Generated with ❤️ by Homer Enhanced</p>
+        <div class="tech-stack">
+            <span>🐍 Python</span>
+            <span>•</span>
+            <span>🎨 Modern CSS</span>
+            <span>•</span>
+            <span>⚡ Fast & Beautiful</span>
+        </div>
+    </footer>
+</body>
+</html>
