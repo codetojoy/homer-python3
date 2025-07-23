@@ -9,6 +9,7 @@ News
 CBC news, https://cbc.ca/news
 CBC PEI, https://cbc.ca/pei
 CNN, https://cnn.com
+Hacker News, https://news.ycombinator.com
 
 Mail
 Yahoo, https://mail.yahoo.com
@@ -19,3 +20,10 @@ AWS, https://aws.amazon.com/console/
 BitWarden, https://bitwarden.com
 MeetUp, https://meetup.com/pei-developers
 PEI Devs Slack, https://peidevs.slack.com
+
+AI & Development
+Hugging Face, https://huggingface.co, Open source AI models and tools
+GitHub Copilot, https://github.com/features/copilot, AI pair programmer
+Cursor, https://cursor.sh, AI-powered code editor
+v0, https://v0.dev, Generate UI components with AI
+Perplexity, https://perplexity.ai, AI-powered search and research
